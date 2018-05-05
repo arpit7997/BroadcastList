@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BroadcastList</string>
+
+    <string name="slide_1_title">Hey there! Im Arpit </string>
+    <string name="slide_1_desc">I share something amazing\nto read every day</string>
+
+    <string name="slide_2_title">One Broadcast\nEveryday</string>
+    <string name="slide_2_desc">Some of the best articles,\nessays and book experts\nyoull ever read</string>
+
+    <string name="slide_3_title">Youll get\nNotifications.</string>
+    <string name="slide_3_desc">Ill notify you everytime I\nsend a new broadcast.</string>
+
+</resources>

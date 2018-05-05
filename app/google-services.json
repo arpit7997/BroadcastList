@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "675400157349",
+    "firebase_url": "https://broadcastjoshtalks.firebaseio.com",
+    "project_id": "broadcastjoshtalks",
+    "storage_bucket": "broadcastjoshtalks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675400157349:android:6bab5ab2408a33f4",
+        "android_client_info": {
+          "package_name": "com.joshtalks.arpit.broadcastlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675400157349-lkgmaubarc25135e21mgunvhaj7jlrft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAub971i-K6fUlL1XxzgVZA0mEFrKZLSIo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
