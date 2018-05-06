@@ -7,6 +7,7 @@ package com.joshtalks.arpit.broadcastlist.Model;
 public class BroadCast {
     private String BroadCastNum, Ref, Message, Date, Link, AuthorName, TimeToRead;
 
+    //empty constructor
     BroadCast(){
 
     }
@@ -20,6 +21,7 @@ public class BroadCast {
         AuthorName = authorName;
         TimeToRead = timeToRead;
     }
+    //getter and setter method
 
     public String getBroadCastNum() {
         return BroadCastNum;

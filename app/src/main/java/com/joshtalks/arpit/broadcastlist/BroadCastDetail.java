@@ -55,12 +55,56 @@ public class BroadCastDetail extends AppCompatActivity {
 
         showAllBradCast = (Button) findViewById(R.id.btn_showListBroadcast);
 
-        if (getIntent() != null) {
+        //checking if the id passed id null or not
+        if (getIntent().getExtras() != null) {
             broadCastId = getIntent().getStringExtra("BroadCastId");
 
+            //if not null, show the  boradcast clicked by user
             if (broadCastId != null) {
                 loadBroadCast();
             }
+        }
+        //if null, show todays broadcast
+        else{
+            broadcast.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                    for(DataSnapshot postSnap: dataSnapshot.getChildren()) {
+
+                        currentBroadCast = postSnap.getValue(BroadCast.class);
+                        if (currentBroadCast != null) {
+                            String startDateValue = currentBroadCast.getDate();
+                            Date todayDateValue = new Date();
+                            Date date = null;
+                            //converting string into date format
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                date = sdf.parse(startDateValue);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            long diff = todayDateValue.getTime() - date.getTime();
+                            long seconds = diff / 1000;
+                            long minutes = seconds / 60;
+                            long hours = minutes / 60;
+                            long days = (hours / 24);
+
+                            //if the diff between days is 0, means its todays broadcast
+                            if (days == 0) {
+                                broadCastId = postSnap.getKey();
+                                loadBroadCast();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
         showAllBradCast.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +118,7 @@ public class BroadCastDetail extends AppCompatActivity {
 
     private void loadBroadCast() {
 
+        //showing broadcast details of the key
         broadcast.child(broadCastId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,6 +131,8 @@ public class BroadCastDetail extends AppCompatActivity {
                     message.setText(currentBroadCast.getMessage());
                     authorName.setText("- " + currentBroadCast.getAuthorName());
                     timeToRead.setText("(" + currentBroadCast.getTimeToRead() + " mins read)");
+
+                    //setting up link
                     link.setText(Html.fromHtml("<a href ='"+currentBroadCast.getLink()+"'>Link to full Broadcast<a/>"));
                     bradcastNum.setText("#" + currentBroadCast.getBroadCastNum()+" - Read This Today");
                     String startDateValue = currentBroadCast.getDate();
@@ -103,10 +150,13 @@ public class BroadCastDetail extends AppCompatActivity {
                     long hours = minutes / 60;
                     long days = (hours / 24);
 
+                    //checking if it's todays broadcast or old
+                    //if todays, show the hours
                     if(days == 0){
                         text.setText("Today's Broadcast");
                         timePast.setText(hours+"hr");
                     }else{
+                        //if past, show the days difference
                         timePast.setText(days+"d");
                     }
 

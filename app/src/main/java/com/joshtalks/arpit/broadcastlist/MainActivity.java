@@ -44,25 +44,32 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setAutoMeasureEnabled(false);
         recycler_broadcast.setLayoutManager(layoutManager);
+
+        //animating recycler view
         int resId = R.anim.layout_fall_down;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getBaseContext(), resId);
         recycler_broadcast.setLayoutAnimation(animation);
 
+        //calling function to load all the broadcast
         loadBroadCast();
+
         runLayoutAnimation(recycler_broadcast);
 
     }
 
     private void loadBroadCast() {
 
+
+        //setting up the recyclerView
         adapter = new FirebaseRecyclerAdapter<BroadCast, BroadCastViewHolder>(BroadCast.class,
                 R.layout.broadcast_item,
                 BroadCastViewHolder.class,
-                broadcast) {
+                broadcast.orderByChild("Date")) {
 
             @Override
             protected void populateViewHolder(BroadCastViewHolder viewHolder, BroadCast model, int position) {
 
+                //setting name of broadcast
                 viewHolder.txtBroadcastNumber.setText("Broadcast #" + model.getBroadCastNum());
 
 
@@ -70,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
 
+                        //sending the key of the item clicked
                         Intent billDetail = new Intent(MainActivity.this, BroadCastDetail.class);
                         billDetail.putExtra("BroadCastId", adapter.getRef(position).getKey());
                         startActivity(billDetail);
@@ -84,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
+
+
         final Context context = recyclerView.getContext();
         final LayoutAnimationController controller =
                 AnimationUtils.loadLayoutAnimation(context, R.anim.layout_fall_down);

@@ -26,19 +26,29 @@ public class SplashScreen extends AppCompatActivity {
 
         final String firstTimeLauch = Paper.book().read("firstTime");
 
+
     new Handler().postDelayed(new Runnable() {
 
         @Override
         public void run() {
+            //checking if  the app is launched for first time
+            //if yes, open the slider activity
             if(firstTimeLauch == null){
 
                 Intent i = new Intent(SplashScreen.this, SwipingScreen.class);
                 startActivity(i);
+                //save in localdb
                 Paper.book().write("firstTime","1");
             }
             else{
-                Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                //not launched for first time.
+                Intent i = new Intent(SplashScreen.this, BroadCastDetail.class);
                 startActivity(i);
+
+                //starting the service of notification.
+                Intent service = new Intent(SplashScreen.this, ListenOrder.class);
+                startService(service);
+
             }
 
 

@@ -34,6 +34,7 @@ public class SwipingScreen extends AppCompatActivity {
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
 
+        //array of layouts of swiping screen
         layouts = new int[]{
                 R.layout.welcome_slide1,
                 R.layout.welcome_slide2,
@@ -83,12 +84,15 @@ public class SwipingScreen extends AppCompatActivity {
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
+    //returning position
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
 
     private void launchHomeScreen() {
-        startActivity(new Intent(SwipingScreen.this, MainActivity.class));
+
+        //starting broadcast activity when user press skip or reaches end and press awesome!
+        startActivity(new Intent(SwipingScreen.this, BroadCastDetail.class));
         finish();
     }
 
@@ -99,9 +103,9 @@ public class SwipingScreen extends AppCompatActivity {
         public void onPageSelected(int position) {
             addBottomDots(position);
 
-            // changing the next button text 'NEXT' / 'GOT IT'
+            // changing the next button text 'NEXT' / 'Awesome'
             if (position == layouts.length - 1) {
-                // last page. make button text to GOT IT
+                // last page. make button text to Awesome
                 btnNext.setText("Awesome!");
                 btnSkip.setVisibility(View.GONE);
             } else {
